@@ -5,7 +5,7 @@ import flask
 import numpy as np
 import flask
 import io
-from PIL import Image
+from PIL import Image as pil
 from base64 import b64encode, b64decode, decodestring
 from io import BytesIO
 import json
@@ -43,7 +43,7 @@ def predict():
         if received.get("image"):
             # read the image in PIL format            
             image = b64decode(received["image"])
-            image = Image.open(io.BytesIO(image)) 
+            image = pil.open(io.BytesIO(image)) 
             cv2_image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
             darknet_img = Image(image) 
 
