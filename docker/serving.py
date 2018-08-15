@@ -19,9 +19,6 @@ def load_model():
     # substitute in your own networks just as easily)
     global model
     model = Detector(bytes("cfg/yolov3.cfg", encoding="utf-8"), bytes("weights/yolov3.weights", encoding="utf-8"), 0, bytes("cfg/coco.data",encoding="utf-8"))
-    #model = ResNet50(weights="imagenet")
-    global graph
-    graph = tf.get_default_graph()
 
 
 @app.route("/objects", methods=["GET"])   
