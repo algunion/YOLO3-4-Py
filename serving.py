@@ -46,7 +46,7 @@ def predict():
             cv2_image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
             darknet_img = Image(image) 
 
-            results = net.detect(darknet_img)
+            results = model.detect(darknet_img)
 
             for cat, score, bounds in results:
                 x, y, w, h = bounds
