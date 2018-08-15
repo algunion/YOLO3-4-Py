@@ -67,7 +67,9 @@ def predict():
 def objdetect():
     # initialize the data dictionary that will be returned from the
     # view
-    data = {"success": False}
+    decoded = flask.request.data.decode("utf-8")
+    print ("decoding ready")
+    received =  json.loads(decoded)
 
     # ensure an image was properly uploaded to our endpoint
     if received.get("image"):
@@ -86,6 +88,8 @@ def objdetect():
             x, y, w, h = bounds
             result.append({"class": detected_class, "score": float(score), "box": { "x": int(x), "y": int(y), "w":int(w), "h": int(h)}})
 
+        
+        print(result)
         
         return flask.jsonify(result)
         
