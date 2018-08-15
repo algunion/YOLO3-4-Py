@@ -45,7 +45,7 @@ def predict():
             image = b64decode(received["image"])
             image = pil.open(io.BytesIO(image)) 
             cv2_image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
-            darknet_img = Image(image) 
+            darknet_img = Image(cv2_image) 
 
             results = model.detect(darknet_img)
 
