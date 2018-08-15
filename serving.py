@@ -5,6 +5,7 @@ import flask
 import numpy as np
 import flask
 import io
+from imageio import imread
 from base64 import b64encode, b64decode, decodestring
 from io import BytesIO
 import json
