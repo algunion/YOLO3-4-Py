@@ -9,6 +9,7 @@ from PIL import Image as pil
 from base64 import b64encode, b64decode, decodestring
 from io import BytesIO
 import json
+from time import time
 
 app = flask.Flask(__name__)
 model = None
@@ -42,12 +43,20 @@ def predict():
         
         if received.get("image"):
             # read the image in PIL format            
+            start_img_proc = time()
             image = b64decode(received["image"])
             image = pil.open(io.BytesIO(image)) 
             cv2_image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
             darknet_img = Image(cv2_image) 
+            img_proc = time() - start_img_proc
+            print("Img proc time:")
+            print(img_proc)
 
+            model_start = time()
             results = model.detect(darknet_img)
+            model_proc = time() - model_start
+            print("model proc time")
+            print(model_proc)
 
             for cat, score, bounds in results:
                 x, y, w, h = bounds
