@@ -5,7 +5,7 @@ import flask
 import numpy as np
 import flask
 import io
-from imageio import imread
+from PIL import Image
 from base64 import b64encode, b64decode, decodestring
 from io import BytesIO
 import json
@@ -41,10 +41,10 @@ def predict():
         received =  json.loads(decoded)
         
         if received.get("image"):
-            # read the image in PIL format
+            # read the image in PIL format            
             image = b64decode(received["image"])
-            image = imread(io.BytesIO(b64decode(image)))
-            cv2_image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
+            image = Image.open(io.BytesIO(image)) 
+            cv2_image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
             darknet_img = Image(image) 
 
             results = model.detect(darknet_img)
